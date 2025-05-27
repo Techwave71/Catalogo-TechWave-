@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo TechWave - Camisetas de Fútbol</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      color: #0077cc;
+    }
+    #catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .producto {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .producto:hover {
+      transform: translateY(-5px);
+    }
+    .producto img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .producto h3 {
+      margin: 0 0 10px;
+      color: #0077cc;
+    }
+    .producto p {
+      margin: 6px 0;
+      font-size: 0.9rem;
+    }
+    .producto button {
+      background-color: #0077cc;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .producto button:hover {
+      background-color: #005fa3;
+    }
+    /* Modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 320px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #0077cc;
+    }
+    .modal label {
+      display: block;
+      margin: 10px 0 4px;
+      font-weight: bold;
+    }
+    .modal input, .modal select {
+      width: 100%;
+      padding: 7px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .modal button {
+      margin-top: 15px;
+      width: 100%;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .modal button:hover {
+      background-color: #005fa3;
+    }
+    .modal-close {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+    .modal-close:hover {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>TechWave - Catálogo de Camisetas de Fútbol</h1>
+  <p>Personalizables con nombre y dorsal | Precio: 29,99€ | Tallas: S a XXL</p>
+  <p>Síguenos en Instagram: <a href="https://instagram.com/Techw4ve" target="_blank">@Techw4ve</a></p>
+</header>
+
+<section id="catalogo"></section>
+
+<!-- Modal de personalización -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <h2>Personaliza tu camiseta</h2>
+    <form id="form-personalizar">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" maxlength="15" placeholder="Ej: Messi" required />
+
+      <label for="dorsal">Dorsal:</label>
+      <input type="number" id="dorsal" name="dorsal" min="1" max="99" placeholder="Ej: 10" required />
+
+      <label for="talla">Talla:</label>
+      <select id="talla" name="talla" required>
+        <option value="">Selecciona una talla</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+      </select>
+
+      <label for="estilo">Estilo:</label>
+      <select id="estilo" name="estilo" required>
+        <option value="">Selecciona estilo</option>
+        <option value="Jugador">Jugador</option>
+        <option value="Fan">Fan</option>
+      </select>
+
+      <button type="submit">Enviar Personalización</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const camisetas = [
+    {
+      nombre: 'Real Madrid',
+      imagen: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/1200px-Real_Madrid_CF.svg.png',
+      precio: 29.99
+    },
+    {
+      nombre: 'FC Barcelona',
+      imagen: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png',
+      precio: 29.99
+    },
+    {
+      nombre: 'Manchester United',
+      imagen: 'https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg',
+      precio: 29.99
+    },
+    {
+      nombre: 'Bayern Munich',
+      imagen: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/FC_Bayern_München_logo_(2017).svg/1200px-FC_Bayern_München_logo_(2017).svg.png',
+      precio: 29.99
+    },
+    {
+      nombre: 'Juventus',
+      imagen: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg',
+      precio: 29.99
+    }
+  ];
+
+  const catalogo = document.getElementById('catalogo');
+  const modalBg = document.getElementById('modal-bg');
+  const modalClose = document.getElementById('modal-close');
+  const formPersonalizar = document.getElementById('form-personalizar');
+
+  let productoSeleccionado = null;
+
+  function cargarCatalogo() {
+    camisetas.forEach((camiseta, index) => {
+      const div = document.createElement('div');
+      div.classList.add('producto');
+      div.innerHTML = `
+        <img src="${camiseta.imagen}" alt="${camiseta.nombre}">
+        <h3>${camiseta.nombre}</h3>
+        <p>Precio: €${camiseta.precio.toFixed(2)}</p>
+        <p>Tallas: S, M, L, XL, XXL</p>
+        <p>Estilos: Jugador | Fan</p>
+        <button data-index="${index}">Personalizar</button>
+      `;
+      catalogo.appendChild(div);
+    });
+  }
+
+  catalogo.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      productoSeleccionado = camisetas[e.target.dataset.index];
+      modalBg.style.display = 'flex';
+    }
+  });
+
+  modalClose.addEventListener('click', () => {
+    modalBg.style.display = 'none';
+    formPersonalizar.reset();
+  });
+
+  formPersonalizar.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nombre = formPersonalizar.nombre.value.trim();
+    const dorsal = formPersonalizar.dorsal.value.trim();
+    const talla = formPersonalizar.talla.value;
+    const estilo = formPersonalizar.estilo.value;
+
+    if (!nombre || !dorsal || !talla || !estilo) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
+    alert(`Gracias por personalizar tu camiseta ${productoSeleccionado.nombre}:\nNombre: ${nombre}\nDorsal: ${dorsal}\nTalla: ${talla}\nEstilo: ${estilo}\nPrecio: €${productoSeleccionado.precio.toFixed(2)}`);
+
+    modalBg.style.display = 'none';
+    formPersonalizar.reset();
+  });
+
+  cargarCatalogo();
+</script>
+
+</body>
+</html>
